@@ -1,12 +1,34 @@
-import React from "react";
+
 import LogoHeader from './LogoHeader';
 import "./Portfolio.css";
 import aboutImage from './assets/about-us-1.png';
+import React, { useEffect } from "react"; 
 
 export default function Portfolio() {
-  const projects = [
-   
+  useEffect(() => {
+    // Disable right-click
+    const disableContextMenu = (e) => e.preventDefault();
+    document.addEventListener("contextmenu", disableContextMenu);
 
+    // Block F12, Ctrl+Shift+I/J/C, Ctrl+U
+    const blockDevTools = (e) => {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
+        (e.ctrlKey && e.key === "U")
+      ) {
+        e.preventDefault();
+      }
+    };
+    document.addEventListener("keydown", blockDevTools);
+
+    return () => {
+      document.removeEventListener("contextmenu", disableContextMenu);
+      document.removeEventListener("keydown", blockDevTools);
+    };
+  }, []);
+
+  const projects = [
     {
       name: "Courier Management System",
       tech: "Java",
