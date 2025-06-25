@@ -1,8 +1,8 @@
-
 import LogoHeader from './LogoHeader';
 import "./Portfolio.css";
 import aboutImage from './assets/about-us-1.png';
 import React, { useEffect } from "react"; 
+import ProjectModal from './ProjectModal';
 
 export default function Portfolio() {
   useEffect(() => {
@@ -28,71 +28,83 @@ export default function Portfolio() {
     };
   }, []);
 
+  const [selectedProject, setSelectedProject] = React.useState(null);
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
   const projects = [
     {
       name: "Courier Management System",
       tech: "Java",
-      description: "Efficient parcel tracking and delivery management software.",
+      description: "Efficient parcel tracking and delivery management software. This project streamlines the process of sending, tracking, and delivering parcels, providing real-time updates and robust management features for courier businesses.",
       icon: "📦",
-      category: "Software"
+      category: "Software",
+      details: "Features include real-time parcel tracking, automated notifications, delivery route optimization, and comprehensive reporting for business analytics."
     },
     {
       name: "Handicraft E-Commerce",
       tech: "React + Laravel",
-      description: "A custom platform to sell and manage local handmade crafts.",
+      description: "A custom platform to sell and manage local handmade crafts. It enables artisans to showcase their products, manage inventory, and process orders, supporting local businesses with a user-friendly online marketplace.",
       icon: "🛍️",
-      category: "Web"
+      category: "Web",
+      details: "Supports multiple payment gateways, product reviews, artisan profiles, and order management dashboard for sellers."
     },
     {
       name: "Auction Platform",
       tech: "React",
-      description: "A web application for online auctions and bidding.",
+      description: "A web application for online auctions and bidding. Users can list items, place bids in real-time, and track auction progress, providing a transparent and interactive auction experience.",
       icon: "💰",
-      category: "Web"
+      category: "Web",
+      details: "Includes live bidding, auction timers, user authentication, and automated winner notifications."
     },
     {
       name: "GreenBasket",
       tech: "HTML + CSS + JS + PHP",
-      description: "A web application for managing and selling organic produce.",
+      description: "A web application for managing and selling organic produce. Farmers and vendors can list fresh products, while customers can browse, order, and track their organic purchases easily.",
       icon: "🥦",
-      category: "Web"
+      category: "Web",
+      details: "Features product catalog, order tracking, vendor management, and customer feedback system."
     },
     {
       name: "Nurse Allocation System",
       tech: "HTML + CSS + JS + PHP",
-      description: "A web application for managing nurse allocations and schedules.",
+      description: "A web application for managing nurse allocations and schedules. Hospitals can efficiently assign nurses to shifts, track attendance, and ensure optimal staffing for patient care.",
       icon: "👩‍⚕️",
-      category: "Web"
+      category: "Web",
+      details: "Shift scheduling, attendance tracking, nurse profiles, and reporting tools for administrators."
     },
     {
-    name: "FoxFlair",
-    tech: "HTML + CSS + JS + PHP",
-    description: "A web application for managing and selling clothes and cosmetics.",
-    icon: "👗",
-    category: "Web"
-  },
-  {
-    name: "Student Hostal Management System",
-    tech: "HTML + CSS + JS + PHP",
-    description: "A web application for managing student hostal data and attendance.",
-    icon: "🏢",
-    category: "Web"
-  },
+      name: "FoxFlair",
+      tech: "HTML + CSS + JS + PHP",
+      description: "A web application for managing and selling clothes and cosmetics. It offers inventory management, product showcasing, and a seamless shopping experience for fashion and beauty products.",
+      icon: "👗",
+      category: "Web",
+      details: "Inventory management, product galleries, customer wishlists, and promotional campaign tools."
+    },
+    {
+      name: "Student Hostal Management System",
+      tech: "HTML + CSS + JS + PHP",
+      description: "A web application for booking and managing student hostel rooms. Students can search for available rooms, make reservations, and manage their bookings, while administrators can track room assignments and monitor attendance.",
+      icon: "🏢",
+      category: "Web",
+      details: "Room booking, reservation management, attendance logs, student profiles, and fee management modules."
+    },
     {
       name: "Security Alarm System",
       tech: "ESP32 + React Native",
-      description: "Real-time motion alerts with mobile notifications.",
+      description: "Real-time motion alerts with mobile notifications. This IoT solution uses ESP32 sensors to detect movement and instantly notifies users via a mobile app, enhancing home and office security.",
       icon: "🚨",
-      category: "IoT"
+      category: "IoT",
+      details: "Mobile push notifications, sensor status dashboard, and remote arming/disarming features."
     },
     {
       name: "DocLink",
       tech: "Kotlin + Firebase",
-description: `DocLink is designed to simplify the process of doctor appointments, providing a platform for patients to connect with healthcare providers efficiently. It aims to make healthcare more accessible, ensuring patients can schedule appointments conveniently and receive timely communication from their doctors.`,
+      description: "DocLink is designed to simplify the process of doctor appointments, providing a platform for patients to connect with healthcare providers efficiently. It aims to make healthcare more accessible, ensuring patients can schedule appointments conveniently and receive timely communication from their doctors.",
       icon: "🚪",
-      category: "Mobile App"
+      category: "Mobile App",
+      details: "Appointment scheduling, doctor search, chat with healthcare providers, and appointment reminders."
     }
-  ];
+    ];
 
   return (
     <div className="portfolio">
@@ -217,19 +229,8 @@ description: `DocLink is designed to simplify the process of doctor appointments
                   <button 
                     className="learn-more" 
                     onClick={() => {
-                      const projectLinks = {
-
-                        "Courier Management System": "https://example.com/courier-management-system",
-                        "Handicraft E-Commerce": "http://localhost:3001",
-                        "Auction Platform": "http://localhost:3000",
-                        "GreenBasket": "http://localhost/greenbasket/pages/index.php",
-                        "Nurse Allocation System": "http://localhost/nurse_allocation_system/index.php",
-                        "FoxFlair": "http://localhost/FoxFlair/pages/index.php",
-                        "Student Hostal Management System": "http://localhost/thisara_assignment/index.php",
-                        "Security Alarm System": "https://example.com/security-alarm-system",
-                        "DocLink": "https://example.com/doclink"
-                      };
-                      window.open(projectLinks[project.name], '_blank');
+                      setSelectedProject(project);
+                      setIsModalOpen(true);
                     }}
                   >
                     Learn More →
@@ -279,6 +280,15 @@ description: `DocLink is designed to simplify the process of doctor appointments
       <footer className="footer">
         © {new Date().getFullYear()} RvDo Developers. All rights reserved.
       </footer>
+
+      <ProjectModal 
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          setSelectedProject(null);
+        }}
+      />
     </div>
   );
 }

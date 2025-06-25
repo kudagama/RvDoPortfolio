@@ -671,49 +671,53 @@ body {
 
 /* Background image utilities */
 .bg-image {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  opacity: 0.1;
+  background-color: var(--purple-primary);
 }
 
 /* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(30px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
 @keyframes slideInTop {
   from {
+    transform: translateY(-30px);
     opacity: 0;
-    transform: translateY(-40px);
   }
   to {
-    opacity: 1;
     transform: translateY(0);
+    opacity: 1;
   }
 }
 
 @keyframes fadeInUp {
   from {
+    transform: translateY(30px);
     opacity: 0;
-    transform: translateY(40px);
   }
   to {
-    opacity: 1;
     transform: translateY(0);
+    opacity: 1;
   }
 }
 
 @keyframes imageLoad {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(1.1);
   }
   to {
     opacity: 1;
@@ -722,82 +726,86 @@ body {
 }
 
 /* Responsive Enhancements */
+@media (max-width: 1024px) {
+  .portfolio {
+    padding-top: 60px;
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
   .header h1 {
     font-size: 2.5rem;
   }
 
+  .header p {
+    font-size: 1rem;
+  }
+
   .section h2 {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
   }
-
-  .project-card {
-    padding: 20px;
-  }
-
-  .project-icon {
-    font-size: 2rem;
-    padding: 12px;
-  }
-
-  .project-content h3 {
-    font-size: 1.3rem;
-  }
-
+  
   .projects-grid {
     grid-template-columns: 1fr;
-    padding: 10px;
-    gap: 20px;
   }
 
   .about-content {
     flex-direction: column;
     text-align: center;
-    gap: 40px;
   }
 
   .about-image {
-    margin-top: 20px;
-  }
-
-  .about-image img {
-    max-width: 90%;
-    margin: 0 auto;
+    margin-top: 30px;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .about-stats {
     justify-content: center;
   }
-
-  .about-subtitle {
-    font-size: 1.5rem;
-  }
-
-  .stat {
-    padding: 15px;
-  }
-
-  .stat-number {
-    font-size: 2rem;
-  }
-
-  .portfolio {
-    padding: 0 15px;
-  }
   
-  .section {
-    margin: 40px auto;
-    padding: 0 15px;
+  .contact-info {
+      flex-direction: column;
+      gap: 20px;
   }
 }
 
 @media (max-width: 480px) {
   .portfolio {
+    padding: 40px 15px 0;
+  }
+
+  .section {
+    margin: 60px auto;
     padding: 0 10px;
   }
   
-  .section {
-    margin: 30px auto;
-    padding: 0 10px;
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .section h2 {
+    font-size: 1.5rem;
+  }
+
+  .service-card {
+    flex-basis: 80%;
+  }
+
+  .about-subtitle {
+      font-size: 1.5rem;
+  }
+
+  .stat {
+    flex-basis: 40%;
+  }
+
+  .contact-card {
+      padding: 25px;
   }
 }
